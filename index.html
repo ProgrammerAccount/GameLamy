@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    #canvas{
+        border: 0;
+        padding: 0;
+        width: 80%;
+        height: 80%;
+        display: block;
+            
+    }
+    body{
+        border: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #control
+    {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        position: fixed;
+        top : 70%;
+        background-color: #ccc;
+    }
+    #analog
+    {
+        width: 1px;
+        height: 1px;
+        margin:25%; 
+        border-radius: 100%;
+        position: relative;
+        background-color: #000;
+        padding: 25%;
+    }
+    #attack
+    {
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        top : 70%;
+        border-radius: 100%;
+        background-color: #000;
+       
+        margin:25px;
+        left: 90%;
+    
+    }
+</style>
+    <title>Lamy</title>
+</head>
+<body>
+    <div id="control">
+        <div id="analog"></div>
+    </div>
+    <div id="attack"></div>
+<canvas width="1200"   id="canvas" ></canvas>
+</body>
+</html>
+    <script>
+        const IMG_WIDTH = 100;
+        const IMG_HEIGHT = 100;
+        const COUNT_SLIDE = 5;
+        const FPS=15;
+        const RIGHT = 0;
+        const LEFT = 1;
+        const STATUS = {
+            WALK:"WALK",
+            ATTACK:"ATTACK",
+            IDLE:"IDLE",
+            JUMP:"JUMP",
+            HURT:"HURT"
+        };
+
+    </script>
+    <script type="text/javascript" src="bot.js"></script>
+    <script type="text/javascript" src="champion.js"></script>
+    <script type="text/javascript" src="main.js"></script>
