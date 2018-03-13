@@ -29,30 +29,12 @@ const KeyCode={
         65:"left",
         32:"attack"
     };
-window.addEventListener("keyup",function(event)
-{
+window.addEventListener("keyup",event => KeyStatus[KeyCode[event.keyCode]]=false);
+window.addEventListener("keydown",event => KeyStatus[KeyCode[event.keyCode]]=true);
 
-    
-	KeyStatus[KeyCode[event.keyCode]]=false;
-});
-window.addEventListener("keydown",function(event)
-{  
-	KeyStatus[KeyCode[event.keyCode]]=true;
-});
+attackButton.addEventListener("touchstart",e => KeyStatus.attack=true);
 
-attackButton.addEventListener("touchstart",function(e){
-
-    console.log("attack");
-KeyStatus.attack=true; 
-
-
-});
-
-attackButton.addEventListener("touchend",(e)=>{
-
-KeyStatus.attack=false;   
-
-});
+attackButton.addEventListener("touchend",e => KeyStatus.attack=false);
 control.addEventListener("touchmove",(e)=>{
 
     let touchObj= e.changedTouches[0];
