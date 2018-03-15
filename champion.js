@@ -5,11 +5,12 @@ class Status
         constructor(pathToImg)
         {
             this.texture = new Image(IMG_WIDTH,IMG_HEIGHT);
+            this.height=100;    
             this.texture.src = pathToImg;
-            this.width = this.texture.naturalWidth/(COUNT_SLIDE*2);
-            this.height = this.texture.naturalHeight;
             this.status=0;
+            this.width = this.texture.naturalWidth/(COUNT_SLIDE*2);
         }
+    
     }
 class Champion
 {
@@ -27,9 +28,15 @@ class Champion
         this.championDirection=RIGHT;
         this.attackColdown=800;
         this.attackIsPossible=true;
-
-        this.status= new Status(FolderWithIMG + "/Idle.png");
         
+        this.WALK = new Status(FolderWithIMG + "/Walking.png");
+        this.IDLE = new Status(FolderWithIMG + "/Idle.png");
+        this.JUMP = new Status(FolderWithIMG + "/Jump.png");
+        this.ATTACK = new Status(FolderWithIMG + "/Attack.png");
+        this.HURT = new Status(FolderWithIMG + "/Hurt.png");
+        
+        this.status = this.IDLE;
+        //console.log(this.status);
         this.fury=0;
         setInterval(function(self){
             if(self.fury-2>0)self.fury-=2;
@@ -37,24 +44,27 @@ class Champion
         
         
         
+        
     }
     GetDamage(damage,KnockDirection)
     {
         this.hp=this.hp-damage;
-        this.status=new Status(this.pathToImage+"/Hurt.png")
+        this.status=this.HURT;
         if(KnockDirection===RIGHT)
-            
-        this.x-=this.movmentSpeed*3;
-        else this.x+=this.movmentSpeed*3;
-        
+            {
+                if(this.x-this.movmentSpeed*3>0)
+                    this.x-=this.movmentSpeed*3;
+            }
+            else if(this.x+this.movmentSpeed*3>Canvas.width-this.status.width)
+                this.x+=this.movmentSpeed*3;
         this.fury+=5;
         if(this.fury>100)this.fury=100;
     }
 	move(direction)
 	{
-        if(this.status.texture.src.match("/Idle.png") || this.status.texture.src.match("/Walking.png"))
+        if(this.status === this.IDLE || this.status === this.WALK )
         {
-            if(this.status.texture.src===this.pathToImage+"/Idle.png")  this.status=new Status(this.pathToImage+"/Walking.png");
+            if(this.status === this.IDLE)  this.status = this.WALK;
             switch (direction)
             {
                 case "left":
@@ -67,13 +77,14 @@ class Champion
                 }
                 case "right":
                 {
+                    if(this.x<Canvas.width-this.status.width)
                     this.x+=this.movmentSpeed;
                     this.championDirection=RIGHT;
                     break;
                 }
                 case "top":
                 {
-                    this.status=new Status(this.pathToImage+"/Jump.png");
+                    this.status = this.JUMP;
                     if(this.championDirection===RIGHT)
                     this.x+=this.movmentSpeed;
                     else this.x-=this.movmentSpeed;
@@ -93,7 +104,7 @@ class Champion
             this.attackIsPossible=false;
             let fun=self => self.attackIsPossible=true;
         setTimeout(fun,this.attackColdown,this);
-        this.status=new Status(this.pathToImage+"/Attack.png")
+        this.status = this.ATTACK;
         if(this.attackRange>Math.abs((this.x+IMG_WIDTH)-EnemyX) || this.attackRange>Math.abs(this.x-(EnemyX+IMG_WIDTH)))
 		{
             return true;
@@ -109,6 +120,7 @@ class Champion
     }
     draw(ctx)
     {
+        console.log(this.status.texture);
         let x= this.x;
         if(this.status.width>150 && this.championDirection===LEFT) x-= IMG_WIDTH;
         
@@ -121,8 +133,8 @@ class Champion
         this.status.status++;
         if(this.status.status>=COUNT_SLIDE) 
         {
-            this.status.status=0;
-            this.status= new Status(this.pathToImage + "/Idle.png");
+            this.status.status = 0;
+            this.status = this.IDLE;
         }
         this.furryBar(ctx);
     }
