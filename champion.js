@@ -2,11 +2,11 @@
 /* global IMG_HEIGHT, IMG_WIDTH, RIGHT, STATUS, LEFT, COUNT_SLIDE */
 class Status
     {
-        constructor(pathToImg)
+        constructor(imgId)
         {
-            this.texture = new Image(IMG_WIDTH,IMG_HEIGHT);
-            this.height=100;    
-            this.texture.src = pathToImg;
+            this.texture = document.getElementById(imgId);
+            this.height=this.texture.naturalHeight;    
+            //this.texture.src = pathToImg;
             this.status=0;
             this.width = this.texture.naturalWidth/(COUNT_SLIDE*2);
         }
@@ -23,20 +23,19 @@ class Champion
         this.movmentSpeed=8;
         this.attackSpeed=10;
         this.walkStatus=0;
-        this.attackRange=20;
+        this.attackRange=10;
         this.pathToImage=FolderWithIMG;
         this.championDirection=RIGHT;
         this.attackColdown=800;
         this.attackIsPossible=true;
         
-        this.WALK = new Status(FolderWithIMG + "/Walking.png");
-        this.IDLE = new Status(FolderWithIMG + "/Idle.png");
-        this.JUMP = new Status(FolderWithIMG + "/Jump.png");
-        this.ATTACK = new Status(FolderWithIMG + "/Attack.png");
-        this.HURT = new Status(FolderWithIMG + "/Hurt.png");
+        this.WALK = new Status(FolderWithIMG + "Walking");
+        this.IDLE = new Status(FolderWithIMG + "Idle");
+        this.JUMP = new Status(FolderWithIMG + "Jump");
+        this.ATTACK = new Status(FolderWithIMG + "Attack");
+        this.HURT = new Status(FolderWithIMG + "Hurt");
         
         this.status = this.IDLE;
-        //console.log(this.status);
         this.fury=0;
         setInterval(function(self){
             if(self.fury-2>0)self.fury-=2;
@@ -48,17 +47,19 @@ class Champion
     }
     GetDamage(damage,KnockDirection)
     {
-        this.hp=this.hp-damage;
-        this.status=this.HURT;
-        if(KnockDirection===RIGHT)
-            {
-                if(this.x-this.movmentSpeed*3>0)
-                    this.x-=this.movmentSpeed*3;
-            }
-            else if(this.x+this.movmentSpeed*3>Canvas.width-this.status.width)
-                this.x+=this.movmentSpeed*3;
-        this.fury+=5;
-        if(this.fury>100)this.fury=100;
+        if(this.status!== this.JUMP){
+            this.hp=this.hp-damage;
+            this.status=this.HURT;
+            if(KnockDirection===RIGHT)
+                {
+                    if(this.x-this.movmentSpeed*3>0)
+                        this.x-=this.movmentSpeed*3;
+                }
+                else if(this.x+this.movmentSpeed*3>Canvas.width-this.status.width)
+                    this.x+=this.movmentSpeed*3;
+            this.fury+=5;
+            if(this.fury>100)this.fury=100;
+        }   
     }
 	move(direction)
 	{
@@ -85,9 +86,6 @@ class Champion
                 case "top":
                 {
                     this.status = this.JUMP;
-                    if(this.championDirection===RIGHT)
-                    this.x+=this.movmentSpeed;
-                    else this.x-=this.movmentSpeed;
                     break;
                 }
             }
@@ -120,7 +118,6 @@ class Champion
     }
     draw(ctx)
     {
-        console.log(this.status.texture);
         let x= this.x;
         if(this.status.width>150 && this.championDirection===LEFT) x-= IMG_WIDTH;
         

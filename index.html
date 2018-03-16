@@ -5,9 +5,12 @@
     #canvas{
         border: 0;
         padding: 0;
-        width: 80%;
-        height: 80%;
+        top:0;
         display: block;
+        position: absolute;
+        background: white;
+        
+
             
     }
     body{
@@ -17,12 +20,15 @@
     }
     #control
     {
-        width: 100px;
-        height: 100px;
+        width: 25vw;
+        height: 25vw;
         border-radius: 100%;
         position: fixed;
         top : 70%;
+        left:5%;
         background-color: #ccc;
+        z-index: 100;
+        bottom: 5vw;
     }
     #analog
     {
@@ -33,18 +39,19 @@
         position: relative;
         background-color: #000;
         padding: 25%;
+        z-index: 100;
     }
     #attack
     {
-        width: 50px;
-        height: 50px;
+        width: 25vw;
+        height: 25vw;
         position: fixed;
         top : 70%;
         border-radius: 100%;
         background-color: #000;
-       
-        margin:25px;
-        left: 90%;
+        z-index: 100;
+        right: 5%;
+        bottom: 5vw;
     
     }
 </style>
@@ -55,6 +62,17 @@
         <div id="analog"></div>
     </div>
     <div id="attack"></div>
+    <img id="AlaAttack" src="Ala/Attack.png"/>
+    <img id="AlaHurt"src="Ala/Hurt.png"/>
+    <img id="AlaJump" src="Ala/Jump.png"/>
+    <img id="AlaWalking" src="Ala/Walking.png"/>
+    <img id="AlaIdle" src="Ala/Idle.png"/>
+    <img id="OlaAttack" src="Ola/Attack.png"/>
+    <img id="OlaHurt" src="Ola/Hurt.png"/>
+    <img id="OlaJump" src="Ola/Jump.png"/>
+    <img id="OlaWalking" src="Ola/Walking.png"/>
+    <img id="OlaIdle" src="Ola/Idle.png"/>    
+
 <canvas width="1200"   id="canvas" ></canvas>
 </body>
 </html>
@@ -65,13 +83,7 @@
         const FPS=15;
         const RIGHT = 0;
         const LEFT = 1;
-        const STATUS = {
-            WALK:"WALK",
-            ATTACK:"ATTACK",
-            IDLE:"IDLE",
-            JUMP:"JUMP",
-            HURT:"HURT"
-        };
+        
 
     </script>
     <script type="text/javascript" src="bot.js"></script>
