@@ -9,6 +9,8 @@ class Status
             //this.texture.src = pathToImg;
             this.status=0;
             this.width = this.texture.naturalWidth/(COUNT_SLIDE*2);
+            this.sizeWidth = (this.texture.naturalWidth/(COUNT_SLIDE*2)*(window.innerWidth*0.2))/100;
+            this.sizeHeight=window.innerWidth*0.2; 
         }
     
     }
@@ -16,26 +18,28 @@ class Champion
 {
 	constructor(FolderWithIMG )
 	{
-        this.x=10;
-        this.y=10;
-        this.attackDamage=10;
-        this.hp=10;
-        this.movmentSpeed=8;
-        this.attackSpeed=10;
-        this.walkStatus=0;
-        this.attackRange=10;
-        this.pathToImage=FolderWithIMG;
-        this.championDirection=RIGHT;
-        this.attackColdown=800;
-        this.attackIsPossible=true;
         
-        this.WALK = new Status(FolderWithIMG + "Walking");
+                this.WALK = new Status(FolderWithIMG + "Walking");
         this.IDLE = new Status(FolderWithIMG + "Idle");
         this.JUMP = new Status(FolderWithIMG + "Jump");
         this.ATTACK = new Status(FolderWithIMG + "Attack");
         this.HURT = new Status(FolderWithIMG + "Hurt");
         
         this.status = this.IDLE;
+        this.x=10;
+        this.y=window.innerHeight*0.7-this.status.sizeHeight;
+        this.attackDamage=10;
+        this.hp=10;
+        this.movmentSpeed=window.innerWidth*0.005;
+        this.attackSpeed=10;
+        this.walkStatus=0;
+        this.attackRange=125;
+        this.pathToImage=FolderWithIMG;
+        this.championDirection=RIGHT;
+        this.attackColdown=800;
+        this.attackIsPossible=true;
+        
+
         this.fury=0;
         setInterval(function(self){
             if(self.fury-2>0)self.fury-=2;
@@ -103,7 +107,7 @@ class Champion
             let fun=self => self.attackIsPossible=true;
         setTimeout(fun,this.attackColdown,this);
         this.status = this.ATTACK;
-        if(this.attackRange>Math.abs((this.x+IMG_WIDTH)-EnemyX) || this.attackRange>Math.abs(this.x-(EnemyX+IMG_WIDTH)))
+        if(this.attackRange>Math.abs((this.x+this.status.sizeWidth)-EnemyX) || this.attackRange>Math.abs(this.x-(EnemyX+this.status.sizeWidth)))
 		{
             return true;
         }
@@ -119,13 +123,13 @@ class Champion
     draw(ctx)
     {
         let x= this.x;
-        if(this.status.width>150 && this.championDirection===LEFT) x-= IMG_WIDTH;
+        if(this.status.width>150 && this.championDirection===LEFT) x-= this.status.sizeWidth/2;
         
         ctx.drawImage(this.status.texture,
                       this.status.status*this.status.width+this.championDirection*COUNT_SLIDE*this.status.width,0,
                       this.status.width, this.status.height,
                       x, this.y,
-                      this.status.width, this.status.height);
+                      this.status.sizeWidth, this.status.sizeHeight);
         
         this.status.status++;
         if(this.status.status>=COUNT_SLIDE) 

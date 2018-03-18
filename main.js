@@ -3,8 +3,8 @@
 let Ola= new Champion("Ola");
 let Ala= new Champion("Ala");
 Ala.MovmentSpeed=5;
-Ala.x=200;
-Ala.attackRange=200;
+Ala.x=window.innerWidth*0.8;
+Ala.attackRange=window.innerWidth*0.3;
 let bot= new Bot(Ala,Ola);
 let Canvas= document.getElementById("canvas");
 let ctx= Canvas.getContext("2d");
