@@ -8,6 +8,9 @@
         border: 0;
         padding: 0;
         top:0;
+        left:0;
+        bottom: 0;
+        right:0;
         display: block;
         position: absolute;
         background: url("tumblr_static_tumblr_static_ag7x510lreo00s808400wsk8k_640.png") no-repeat center center fixed;
@@ -26,8 +29,8 @@
     }
     #control
     {
-        width: 25vw;
-        height: 25vw;
+        width: 40vh;
+        height: 40vh;
         border-radius: 100%;
         position: fixed;
         top : 70%;
@@ -51,8 +54,8 @@
     }
     #attack
     {
-        width: 25vw;
-        height: 25vw;
+        width: 40vh;
+        height: 40vh;
         position: fixed;
         top : 70%;
         border-radius: 100%;
@@ -62,6 +65,10 @@
         bottom: 5vw;
         display:none;       
     
+    }
+    .Image
+    {
+        display: none;
     }
 
     @media screen and (max-width: 800px){
@@ -87,17 +94,17 @@
     <div id="control">
         <div id="analog"></div>
     </div>
-    <div id="attack"></div>
-    <img id="AlaAttack" src="Ala/Attack.png"/>
-    <img id="AlaHurt"src="Ala/Hurt.png"/>
-    <img id="AlaJump" src="Ala/Jump.png"/>
-    <img id="AlaWalking" src="Ala/Walking.png"/>
-    <img id="AlaIdle" src="Ala/Idle.png"/>
-    <img id="OlaAttack" src="Ola/Attack.png"/>
-    <img id="OlaHurt" src="Ola/Hurt.png"/>
-    <img id="OlaJump" src="Ola/Jump.png"/>
-    <img id="OlaWalking" src="Ola/Walking.png"/>
-    <img id="OlaIdle" src="Ola/Idle.png"/>    
+    <div class="Image" id="attack"></div>
+    <img class="Image" id="AlaAttack" src="Ala/Attack.png"/>
+    <img class="Image" id="AlaHurt"src="Ala/Hurt.png"/>
+    <img class="Image" id="AlaJump" src="Ala/Jump.png"/>
+    <img class="Image" id="AlaWalking" src="Ala/Walking.png"/>
+    <img class="Image" id="AlaIdle" src="Ala/Idle.png"/>
+    <img class="Image" id="OlaAttack" src="Ola/Attack.png"/>
+    <img class="Image" id="OlaHurt" src="Ola/Hurt.png"/>
+    <img class="Image" id="OlaJump" src="Ola/Jump.png"/>
+    <img class="Image" id="OlaWalking" src="Ola/Walking.png"/>
+    <img  class="Image" id="OlaIdle" src="Ola/Idle.png"/>    
 
 <canvas width="1200"   id="canvas" ></canvas>
 </body>

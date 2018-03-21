@@ -33,7 +33,7 @@ class Champion
         this.movmentSpeed=window.innerWidth*0.005;
         this.attackSpeed=10;
         this.walkStatus=0;
-        this.attackRange=125;
+        this.attackRange=50;
         this.pathToImage=FolderWithIMG;
         this.championDirection=RIGHT;
         this.attackColdown=800;

@@ -13,13 +13,16 @@ let analog = document.getElementById("analog");
 let attackButton = document.getElementById("attack");
 const ANALOG_POSITION_X = control.offsetLeft+analog.offsetLeft;
 const ANALOG_POSITION_Y = control.offsetTop+analog.offsetTop;
+control.style.position="fixed";
 
 Canvas.width = window.innerWidth;
 Canvas.height =  window.innerHeight;
-document.getElementsByTagName("body")[0].width = window.innerWidth;
-document.getElementsByTagName("body")[0].height = window.innerHeight;
-Canvas.height =  window.innerHeight;
+ 
 
+document.addEventListener('resize',function(){
+    Canvas.width = window.innerWidth;
+    Canvas.height =  window.innerHeight;
+});
 
 let KeyStatus={
 		top:false,
