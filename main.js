@@ -2,9 +2,8 @@
 
 let Ola= new Champion("Ola");
 let Ala= new Champion("Ala");
-Ala.MovmentSpeed=5;
+Ala.movmentSpeed=window.innerWidth*0.0025;
 Ala.x=window.innerWidth*0.8;
-Ala.attackRange=window.innerWidth*0.3;
 let bot= new Bot(Ala,Ola);
 let Canvas= document.getElementById("canvas");
 let ctx= Canvas.getContext("2d");
@@ -40,7 +39,6 @@ const KeyCode={
     };
 window.addEventListener("keyup",event => KeyStatus[KeyCode[event.keyCode]]=false);
 window.addEventListener("keydown",event => KeyStatus[KeyCode[event.keyCode]]=true);
-
 attackButton.addEventListener("touchstart",e => KeyStatus.attack=true);
 
 attackButton.addEventListener("touchend",e => KeyStatus.attack=false);
@@ -97,7 +95,7 @@ if(KeyStatus.right)
 if(KeyStatus.top)
     Ola.move("top");
 if(KeyStatus.attack)
-      if(Ola.attack(Ala.x))
+      if(Ola.attack(Ala) && bot.dogeAttack()===false)
      setTimeout(()=>{          
         if(Ola.championDirection===LEFT)//set knock direction
             Ala.GetDamage(Ola.attackDamage,RIGHT);

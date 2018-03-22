@@ -18,13 +18,26 @@ class Bot
                         this.player.move("left");
                     else this.player.move("right");
                 }
+            if(Canvas.width-(this.player.x+this.player.status.sizeWidth)<40 &&
+               Math.abs(this.opponent.x+this.opponent.attackRange-this.player.x)>80)
+                {
+                    this.player.move("left");
+                }
+            else if (this.player.x<20 &&
+               Math.abs(this.opponent.x-this.player.x)>40)
+                {
+                    this.player.move("right");
 
-            if((0.5*this.player.attackRange) > Math.abs(farBetweenObject))
+                }
+            else if((0.5*this.player.attackRange) > Math.abs(farBetweenObject) &&
+               Canvas.width-(this.player.x+this.player.status.sizeWidth)>20)
                 {
                 if(this.player.x>this.opponent.x)
                     this.player.move("right");
                 else this.player.move("left");
                 }
+
+            
                 
            
         }
@@ -39,11 +52,10 @@ class Bot
         calculateAttack()
         {
 
-            
             let farBetweenPlayers = Math.abs(this.player.x-this.opponent.x);
             if(farBetweenPlayers<this.player.attackRange)
 
-                if(this.player.attack(this.opponent.x))
+                if(this.player.attack(this.opponent))
                     setTimeout((self)=>
                     {
                         if(self.player.championDirection===LEFT)
@@ -51,6 +63,18 @@ class Bot
                         else self.opponent.GetDamage(self.player.attackDamage,LEFT);
                     }
                 ,1000/FPS*(COUNT_SLIDE-1),this);
+        }
+        
+        
+        dogeAttack()
+        {
+            if(Math.random()*10 ===5 )
+                {
+                    
+                    this.player.move("top");
+                    return true;
+                }
+            return false;
         }
         
         

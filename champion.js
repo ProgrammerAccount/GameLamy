@@ -6,7 +6,6 @@ class Status
         {
             this.texture = document.getElementById(imgId);
             this.height=this.texture.naturalHeight;    
-            //this.texture.src = pathToImg;
             this.status=0;
             this.width = this.texture.naturalWidth/(COUNT_SLIDE*2);
             this.sizeWidth = (this.texture.naturalWidth/(COUNT_SLIDE*2)*(window.innerWidth*0.2))/100;
@@ -19,7 +18,7 @@ class Champion
 	constructor(FolderWithIMG )
 	{
         
-                this.WALK = new Status(FolderWithIMG + "Walking");
+        this.WALK = new Status(FolderWithIMG + "Walking");
         this.IDLE = new Status(FolderWithIMG + "Idle");
         this.JUMP = new Status(FolderWithIMG + "Jump");
         this.ATTACK = new Status(FolderWithIMG + "Attack");
@@ -33,7 +32,8 @@ class Champion
         this.movmentSpeed=window.innerWidth*0.005;
         this.attackSpeed=10;
         this.walkStatus=0;
-        this.attackRange=50;
+    
+        this.attackRange=this.ATTACK.sizeWidth;
         this.pathToImage=FolderWithIMG;
         this.championDirection=RIGHT;
         this.attackColdown=800;
@@ -59,7 +59,7 @@ class Champion
                     if(this.x-this.movmentSpeed*3>0)
                         this.x-=this.movmentSpeed*3;
                 }
-                else if(this.x+this.movmentSpeed*3>Canvas.width-this.status.width)
+                else if(this.x<Canvas.width-this.status.sizeWidth)
                     this.x+=this.movmentSpeed*3;
             this.fury+=5;
             if(this.fury>100)this.fury=100;
@@ -82,7 +82,7 @@ class Champion
                 }
                 case "right":
                 {
-                    if(this.x<Canvas.width-this.status.width)
+                    if(this.x<Canvas.width-this.status.sizeWidth)
                     this.x+=this.movmentSpeed;
                     this.championDirection=RIGHT;
                     break;
@@ -99,7 +99,7 @@ class Champion
 
     }
     
-	attack(EnemyX)
+	attack(Enemy)
 	{
         if(this.attackIsPossible)
         {
@@ -107,14 +107,16 @@ class Champion
             let fun=self => self.attackIsPossible=true;
         setTimeout(fun,this.attackColdown,this);
         this.status = this.ATTACK;
-        if(this.attackRange>Math.abs((this.x+this.status.sizeWidth)-EnemyX) || this.attackRange>Math.abs(this.x-(EnemyX+this.status.sizeWidth)))
-		{
-            return true;
-        }
+            
+
+                    if(Math.abs(Enemy.x-this.x)<this.attackRange)
+                        return true;
             return false;
+                
+            
         }
         return false;
-	}
+}
     furryBar(ctx)
     {
         ctx.fillStyle="#FF0000";
