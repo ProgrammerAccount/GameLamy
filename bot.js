@@ -14,7 +14,7 @@ class Bot {
                 this.player.move("left");
             else this.player.move("right");
         }
-        if (Canvas.width - (this.player.x + this.player.status.sizeWidth) < 40 &&
+        if (Canvas.width - (this.player.x + this.player.status.sizeWidth) < 80 &&
             Math.abs(this.opponent.x + this.opponent.attackRange - this.player.x) > 80) {
             this.player.move("left");
         } else if (this.player.x < 20 &&

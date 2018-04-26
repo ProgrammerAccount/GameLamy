@@ -101,7 +101,15 @@ function update() {
                 else Ala.GetDamage(Ola.attackDamage, LEFT);
             }, 1000 / FPS * (COUNT_SLIDE - 1));
 
+    if (!Ola.championIsAlive()) {
+        alert("Przegrałeś :(");
+        location.reload();
+    }
+    if (!Ala.championIsAlive()) {
+        alert("Wygrana :)");
+        location.reload();
 
+    }
     bot.calculateDirection();
     bot.calculateMove();
     bot.calculateAttack();

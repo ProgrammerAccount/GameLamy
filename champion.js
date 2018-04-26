@@ -118,6 +118,10 @@ class Champion {
         }
         this.drawHPBar(ctx);
     }
+    championIsAlive(){
+        if(this.hp>0)return true;
+        else return false;
+    }
 
 
 
